@@ -1,0 +1,83 @@
+#Sistema Biblioteca
+livros = []
+
+def adicionar_livro():
+    livro = input("Digite o nome do livro: ")
+    autor = input("Digite o nome do autor: ")
+    livros.append({"titulo": livro, "autor": autor})
+    print(f"O livro '{livro}' foi adicionado à lista.")
+
+def emprestar_livro():
+    livro = input("Digite o nome do livro que deseja pegar emprestado: ")
+    nome = input("Digite o seu nome: ")
+    livro_encontrado = False
+    for item in livros:
+        if item["titulo"] == livro:
+            livros.remove(item)
+            print(f"O livro '{livro}' foi emprestado para {nome}.")
+            livro_encontrado = True
+            break
+    if not livro_encontrado:
+        print(f"O livro '{livro}' não está disponível.")
+
+def devolver_livro():
+    livro = input("Digite o nome do livro que deseja devolver: ")
+    autor = input("Digite o nome do autor: ") 
+    livros.append({"titulo": livro, "autor": autor})
+    print(f"O livro '{livro}' foi devolvido.")
+
+
+def livros_disponiveis():
+    if not livros:
+        print("Não há livros disponíveis no momento.")
+    else:
+        print("Os livros disponíveis são:")
+        for livro in livros:
+            print(f"Título: {livro['titulo']}, Autor: {livro['autor']}")
+
+
+def procurar_livros():
+  buscar_livro = input("Digite o nome do livro que deseja buscar: ")
+  livro_encontrado = False
+  for livro in livros:
+      if livro["titulo"] == buscar_livro:
+          print(f"O livro '{buscar_livro}' está disponível. Autor: {livro['autor']}")
+          livro_encontrado = True
+          break
+  if not livro_encontrado:
+    print(f"O livro '{buscar_livro}' não está disponível")
+
+
+def menu():
+    while True:
+        print("\nMenu da Biblioteca:")
+        print("1. Adicionar livro")
+        print("2. Emprestar livro")
+        print("3. Devolver livro")
+        print("4. Listar livros disponíveis")
+        print("5. Procurar livro")
+        print("6. Sair")
+
+        escolha = input("Escolha uma opção: ")
+
+        try:
+            escolha = int(escolha)
+            if escolha == 1:
+                adicionar_livro()
+            elif escolha == 2:
+                emprestar_livro()
+            elif escolha == 3:
+                devolver_livro()
+            elif escolha == 4:
+                livros_disponiveis()
+            elif escolha == 5:
+                procurar_livros()
+            elif escolha == 6:
+                print("Saindo do menu da biblioteca.")
+                break
+            else:
+                print("Opção inválida. Por favor, escolha uma opção válida.")
+        except ValueError:
+            print("Entrada inválida. Por favor, insira um número inteiro para a opção.")
+
+menu()
