@@ -1,0 +1,81 @@
+#Sistema de oficina mecânica
+
+carros = []
+servicos = []
+
+def registrar_veiculo():
+  dono = input("Digite o nome do dono do veículo: ")
+  modelo = input("Digite o modelo do veículo: ")
+  ano = input("Digite o ano do veículo: ")
+  placa = input("Digite a placa do veículo: ")
+  cor = input("Digite a cor do veículo: ")
+  carros.append({"dono": dono, "modelo": modelo, "ano": ano, "placa": placa, "cor": cor})
+  print("Veículo registrado com sucesso!")
+
+def registrar_servico():
+  placa = input("Digite a placa do veículo para o serviço: ")
+  dono = input("Digite o nome do dono do veículo: ")
+  servico = input("Digite o serviço realizado: ")
+  valor = input("Digite o valor do serviço: ")
+  servicos.append({"placa": placa, "dono": dono, "servico": servico, "valor": valor})
+  print("Serviço registrado com sucesso!")
+
+def listar_veiculos():
+  if not carros:
+    print("Não há veículos registrados no momento.")
+  else:
+    print("Veículos registrados:")
+    for carro in carros:
+      print(f"Dono: {carro['dono']}, Modelo: {carro['modelo']}, Ano: {carro['ano']}, Placa: {carro['placa']}, Cor: {carro['cor']}\n")
+
+def listar_servicos():
+  if not servicos:
+    print("Não há serviços registrados no momento.")
+  else:
+    print("Serviços registrados:")
+    for servico in servicos:
+      print(f"Placa: {servico['placa']}, Dono: {servico['dono']}, Serviço: {servico['servico']}, Valor: {servico['valor']}\n")
+
+def buscar_veiculo():
+  placa = input("Digite a placa do veículo que deseja buscar: ")
+  for carro in carros:
+    if carro["placa"] == placa:
+      print("Veículo encontrado:")
+      print(f"Dono: {carro['dono']}, Modelo: {carro['modelo']}, Ano: {carro['ano']}, Placa: {carro['placa']}, Cor: {carro['cor']}\n")
+      return
+    else:
+      print("Veículo não encontrado.")
+
+def menu():
+  while True:
+    print("\nMenu da Oficina Mecânica:")
+    print("1. Registrar veículo")
+    print("2. Registrar serviço")
+    print("3. Listar veículos")
+    print("4. Listar serviços")
+    print("5. Buscar veículo")
+    print("6. Sair")
+
+    escolha = input("Escolha uma opção: ")
+    try:
+      escolha = int(escolha)
+      if escolha == 1:
+        registrar_veiculo()
+      elif escolha == 2:
+        registrar_servico()
+      elif escolha == 3:
+        listar_veiculos()
+      elif escolha == 4:
+        listar_servicos()
+      elif escolha == 5:
+        buscar_veiculo()
+      elif escolha == 6:
+        print("Saindo do menu da oficina mecânica.")
+        break
+
+      else:
+        print("Opção inválida. Por favor, escolha uma opção válida.")
+    except ValueError:
+      print("Entrada inválida. Por favor, insira um número inteiro para a opção.")
+
+menu()
