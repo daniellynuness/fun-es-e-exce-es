@@ -1,0 +1,59 @@
+#sistema de Hospedagem
+nomes = []
+dias = []
+
+def cadastro():
+  print("Iniciando cadastro de hóspedes:")
+  for i in range(5):
+    while True:
+      nome = input(f'Informe o nome do hóspede {i+1}: ')
+      if nome in nomes:
+        print(f'O nome {nome} já está cadastrado. Por favor, informe um nome diferente.')
+      else:
+        nomes.append(nome)
+        break
+    while True:
+      try:
+        diaria = int(input(f'Informe quantos dias {nome} vai ficar hospedado: '))
+        if diaria > 0:
+          dias.append(diaria)
+          break
+        else:
+          print("O número de dias deve ser maior que zero.")
+      except ValueError:
+        print("Entrada inválida. Por favor, insira um número inteiro para os dias.")
+
+def taxa(nome_hospede):
+  try:
+    if nome_hospede in nomes:
+      index = nomes.index(nome_hospede)
+      quantidade_dias = dias[index]
+
+      if quantidade_dias < 15:
+        taxa_diaria = 20
+      elif quantidade_dias == 15:
+        taxa_diaria = 14
+      else:
+        taxa_diaria = 12
+
+      custo_total = (300 + taxa_diaria) * quantidade_dias
+      return f"Hóspede: {nome_hospede}, Custo total da hospedagem: R${custo_total:.2f}"
+    else:
+      return f"Erro: Hóspede '{nome_hospede}' não encontrado."
+  except Exception as e:
+    return f"Ocorreu um erro ao calcular a taxa para {nome_hospede}: {e}"
+
+
+def pesquisar():
+  print("\nIniciando pesquisa de hóspedes:")
+  nome_pesquisa = input("Digite o nome do hóspede que deseja pesquisar: ")
+  if nome_pesquisa in nomes:
+    count = nomes.count(nome_pesquisa)
+    print(f"{nome_pesquisa} ficou hospedado {count} vez(es).")
+    print(taxa(nome_pesquisa)) 
+  else:
+    print(f"O nome {nome_pesquisa} não foi encontrado na lista de hóspedes.")
+    print("Lista de hóspedes atual:", nomes)
+
+cadastro()
+pesquisar()
